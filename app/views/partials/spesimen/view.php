@@ -1,0 +1,288 @@
+<?php
+$comp_model = new SharedController;
+$page_element_id = "view-page-" . random_str();
+$current_page = $this->set_current_page_link();
+$csrf_token = Csrf::$token;
+//Page Data Information from Controller
+$data = $this->view_data;
+//$rec_id = $data['__tableprimarykey'];
+$page_id = $this->route->page_id; //Page id from url
+$view_title = $this->view_title;
+$show_header = $this->show_header;
+$show_edit_btn = $this->show_edit_btn;
+$show_delete_btn = $this->show_delete_btn;
+$show_export_btn = $this->show_export_btn;
+?>
+<section class="page" id="<?php echo $page_element_id; ?>" data-page-type="view"  data-display-type="table" data-page-url="<?php print_link($current_page); ?>">
+    <?php
+    if( $show_header == true ){
+    ?>
+    <div  class="bg-light p-3 mb-3">
+        <div class="container">
+            <div class="row ">
+                <div class="col ">
+                    <h4 class="record-title">View  Spesimen</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    }
+    ?>
+    <div  class="">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12 comp-grid">
+                    <?php $this :: display_page_errors(); ?>
+                    <div  class="card animated fadeIn page-content">
+                        <?php
+                        $counter = 0;
+                        if(!empty($data)){
+                        $rec_id = (!empty($data['id']) ? urlencode($data['id']) : null);
+                        $counter++;
+                        ?>
+                        <div id="page-report-body" class="">
+                            <table class="table table-hover table-borderless table-striped">
+                                <!-- Table Body Start -->
+                                <tbody class="page-data" id="page-data-<?php echo $page_element_id; ?>">
+                                    <tr  class="td-id">
+                                        <th class="title"> Id: </th>
+                                        <td class="value"> <?php echo $data['id']; ?></td>
+                                    </tr>
+                                    <tr  class="td-tanggal">
+                                        <th class="title"> Tanggal: </th>
+                                        <td class="value">
+                                            <span  data-flatpickr="{ enableTime: false, minDate: '', maxDate: ''}" 
+                                                data-value="<?php echo $data['tanggal']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="tanggal" 
+                                                data-title="Enter Tanggal" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="flatdatetimepicker" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['tanggal']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-mrn">
+                                        <th class="title"> Mrn: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['mrn']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="mrn" 
+                                                data-title="Enter Mrn" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['mrn']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-nama">
+                                        <th class="title"> Nama: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['nama']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="nama" 
+                                                data-title="Enter Nama" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['nama']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-dokter_pengirim">
+                                        <th class="title"> Dokter Pengirim: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['dokter_pengirim']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="dokter_pengirim" 
+                                                data-title="Enter Dokter Pengirim" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['dokter_pengirim']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-jam_pengambilan">
+                                        <th class="title"> Jam Pengambilan: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['jam_pengambilan']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="jam_pengambilan" 
+                                                data-title="Enter Jam Pengambilan" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="time" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['jam_pengambilan']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-pemeriksaan">
+                                        <th class="title"> Pemeriksaan: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['pemeriksaan']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="pemeriksaan" 
+                                                data-title="Enter Pemeriksaan" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['pemeriksaan']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-pemeriksaan_tambahan">
+                                        <th class="title"> Pemeriksaan Tambahan: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['pemeriksaan_tambahan']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="pemeriksaan_tambahan" 
+                                                data-title="Enter Pemeriksaan Tambahan" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['pemeriksaan_tambahan']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-jam_tambahan">
+                                        <th class="title"> Jam Tambahan: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['jam_tambahan']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="jam_tambahan" 
+                                                data-title="Enter Jam Tambahan" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="time" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['jam_tambahan']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-petugas_lab">
+                                        <th class="title"> Petugas Lab: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['petugas_lab']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="petugas_lab" 
+                                                data-title="Enter Petugas Lab" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['petugas_lab']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-perawat_dokter">
+                                        <th class="title"> Perawat Dokter: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['perawat_dokter']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("spesimen/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="perawat_dokter" 
+                                                data-title="Enter Perawat Dokter" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['perawat_dokter']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!-- Table Body End -->
+                            </table>
+                        </div>
+                        <div class="p-3 d-flex">
+                            <div class="dropup export-btn-holder mx-1">
+                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-save"></i> Export
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <?php $export_print_link = $this->set_current_page_link(array('format' => 'print')); ?>
+                                    <a class="dropdown-item export-link-btn" data-format="print" href="<?php print_link($export_print_link); ?>" target="_blank">
+                                        <img src="<?php print_link('assets/images/print.png') ?>" class="mr-2" /> PRINT
+                                        </a>
+                                        <?php $export_pdf_link = $this->set_current_page_link(array('format' => 'pdf')); ?>
+                                        <a class="dropdown-item export-link-btn" data-format="pdf" href="<?php print_link($export_pdf_link); ?>" target="_blank">
+                                            <img src="<?php print_link('assets/images/pdf.png') ?>" class="mr-2" /> PDF
+                                            </a>
+                                            <?php $export_word_link = $this->set_current_page_link(array('format' => 'word')); ?>
+                                            <a class="dropdown-item export-link-btn" data-format="word" href="<?php print_link($export_word_link); ?>" target="_blank">
+                                                <img src="<?php print_link('assets/images/doc.png') ?>" class="mr-2" /> WORD
+                                                </a>
+                                                <?php $export_csv_link = $this->set_current_page_link(array('format' => 'csv')); ?>
+                                                <a class="dropdown-item export-link-btn" data-format="csv" href="<?php print_link($export_csv_link); ?>" target="_blank">
+                                                    <img src="<?php print_link('assets/images/csv.png') ?>" class="mr-2" /> CSV
+                                                    </a>
+                                                    <?php $export_excel_link = $this->set_current_page_link(array('format' => 'excel')); ?>
+                                                    <a class="dropdown-item export-link-btn" data-format="excel" href="<?php print_link($export_excel_link); ?>" target="_blank">
+                                                        <img src="<?php print_link('assets/images/xsl.png') ?>" class="mr-2" /> EXCEL
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <a class="btn btn-sm btn-info"  href="<?php print_link("spesimen/edit/$rec_id"); ?>">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                                <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("spesimen/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Apakah anda yakin akan menghapus data ini?" data-display-style="modal">
+                                                    <i class="fa fa-times"></i> Delete
+                                                </a>
+                                            </div>
+                                            <?php
+                                            }
+                                            else{
+                                            ?>
+                                            <!-- Empty Record Message -->
+                                            <div class="text-muted p-3">
+                                                <i class="fa fa-ban"></i> No Record Found
+                                            </div>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
